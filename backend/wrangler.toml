@@ -5,7 +5,6 @@ compatibility_date = "2024-12-02"
 # compatibility_flags = [ "nodejs_compat" ]
 
 [vars]
-DATABASE_URL=""
 
 
 # [[kv_namespaces]]

@@ -1,5 +1,5 @@
 import { Hono } from 'hono'
-import { getPrimsa } from '../db'
+import { userRouter } from './routes/user'
 
 const app = new Hono<{
   Bindings:{
@@ -7,21 +7,6 @@ const app = new Hono<{
   }
 }>()
 
-app.get('/', async (c) => {
-  
-  const primsa = await getPrimsa(c)
-  const user  = await primsa.user.create({
-    data:{
-      name:'gokul',
-      email:'Gkl3.com',
-      password:'Hellow1'
-    }
-  })
-
-  return c.json({
-    server:'healthy serve'
-  })
-
-})
+app.route('api/v1/user',userRouter)
 
 export default app
