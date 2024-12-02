@@ -7,10 +7,14 @@ import { jsx } from "hono/jsx";
 
 export const userRouter = new Hono<{
     Bindings:{
-        DATABASE_URL:string,
-        JWT_SECRET:string
+      DATABASE_URL:string
+      JWT_SECRET:string
+    },
+    Variables:{
+      userId:string
     }
-}>()
+  }>()
+  
 
 //register route
 userRouter.post('/signup', async (c)=>{
@@ -36,13 +40,22 @@ userRouter.post('/signup', async (c)=>{
     const hashPassword = await bcrypt.hash(body.password,salt)
 
     const primsa = getPrimsa(c)
-    const newUser = await primsa.user.create({
-        data:{
-            name:body.name,
-            email:body.email,
-            password:hashPassword
-        }
-    })
+    let newUser;
+    try {
+     newUser = await primsa.user.create({
+            data:{
+                name:body.name,
+                email:body.email,
+                password:hashPassword
+            }
+        })
+        
+    } catch (error) {
+        c.status(400)
+        return c.json({
+            message:'Duplicate user found'
+        })
+    }
 
     //jwt gen
     const token = await sign({id:newUser.id},c.env.JWT_SECRET)
