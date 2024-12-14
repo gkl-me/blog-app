@@ -3,7 +3,8 @@ import { Avatar, AvatarFallback, } from "@/components/ui/avatar"
 import { CalendarDays, ChevronRight } from 'lucide-react'
 import { Link } from "react-router-dom"
 
-interface BlogCardProps {
+export interface BlogCardProps {
+  id:string
   title: string
   content: string
   author: string
@@ -12,14 +13,15 @@ interface BlogCardProps {
 }
 
 export default function BlogCard({ 
+  id ="1",
   title = "Understanding Modern Web Development",
   content = "Explore the latest trends and best practices in modern web development...",
   author = "Hello",
   date = "Dec 14, 2023",
 }: BlogCardProps) {
   return (
-    <Link to='/post' >
-    <Card className="group overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+    <Link to={`/post/${id}`}>
+    <Card className="group overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 mb-4">
       <CardHeader className="p-6 pb-4">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2 text-sm text-muted-foreground">

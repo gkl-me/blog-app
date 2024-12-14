@@ -7,9 +7,17 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import Header from '@/components/ui/header'
+import { BACKEND_API, getName, getToken } from '@/config'
+import axios, { AxiosError } from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 export default function CreatePost() {
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const username = getName() as string
+
+  const navigate = useNavigate()
+
+  const token = getToken()
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -19,17 +27,34 @@ export default function CreatePost() {
     const formData = new FormData(event.currentTarget)
     const postData = Object.fromEntries(formData)
 
-    console.log('Submitting post:', postData)
+    try {
+      
+      const creatPost = await axios.post(`${BACKEND_API}/api/v1/blog/create`,{
+        title: postData.title,
+        content: postData.content,
+        author: username,
+      },{
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      })
+      if(creatPost.status === 200){
+        console.log('Post created successfully')
+        setIsSubmitting(false)
+        navigate('/home')
+      } 
 
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000))
-
-    setIsSubmitting(false)
+    } catch (error) {
+      if(error instanceof AxiosError){
+        console.error(error?.response?.data?.message || 'Failed to create post')
+        setIsSubmitting(false)
+      }
+    }
   }
 
   return (
     <div className='min-h-screen bg-grid-pattern bg-grid'>
-        <Header name='' />
+        <Header name={username} />
     <div className="pt-40 container mx-auto px-4 py-8 max-w-2xl">
       <Card>
         <CardHeader>
@@ -42,19 +67,8 @@ export default function CreatePost() {
               <Input id="title" name="title" required />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="excerpt">Excerpt</Label>
-              <Textarea id="excerpt" name="excerpt" required />
-            </div>
-            <div className="space-y-2">
               <Label htmlFor="content">Content</Label>
               <Textarea id="content" name="content" required className="min-h-[200px]" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="category">Category</Label>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="coverImage">Cover Image URL</Label>
-              <Input id="coverImage" name="coverImage" type="url" required />
             </div>
           </CardContent>
           <CardFooter>

@@ -17,6 +17,8 @@ blogRouter.post('/create',async(c) => {
     const userId = c.get('userId')
     const primsa = getPrimsa(c)
 
+    console.log(userId)
+
     const {title,content} = await c.req.json()
     let newPost;
     try {

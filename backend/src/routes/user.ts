@@ -63,7 +63,8 @@ userRouter.post('/signup', async (c)=>{
     if(newUser){
         return c.json({
             name:newUser.name,
-            token:token
+            token:token,
+            userId:newUser.id
         })
     }
 })
@@ -115,6 +116,7 @@ userRouter.post('/signin',async(c) => {
     return c.json({
         name:userFound.name,
         token,
+        userId:userFound.id
     })
 
 })

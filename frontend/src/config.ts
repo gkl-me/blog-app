@@ -20,4 +20,5 @@ export function getName(){
 }
 
 
-export const BACKEND_API="http://localhost:8787"
+
+export const BACKEND_API="https://backend.gklgrme.workers.dev"

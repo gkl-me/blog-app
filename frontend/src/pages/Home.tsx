@@ -7,7 +7,7 @@ import { useToast } from "@/hooks/use-toast"
 import axios, { AxiosError } from "axios"
 import { useEffect, useState } from "react"
 
-interface BlogInterface {
+export interface BlogInterface {
   id: string
   title: string
   content: string
@@ -70,7 +70,7 @@ const Home = () => {
        </div>
     ):(
        blogs?.map((blog: BlogInterface, index) => (
-         <BlogCard key={index} author={blog.author.name} title={blog.title} content={blog.content} date="12 Jan 2025"  />
+         <BlogCard id={blog.id} key={index} author={blog.author.name} title={blog.title} content={blog.content} date="12 Jan 2025"  />
        ))
     )}
       </div>

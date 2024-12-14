@@ -19,7 +19,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path='/' element={<Landing />} />
         <Route path='/' element={<ProtectedRoute/>} >
           <Route path='home' element={<Home />} />
-          <Route path='post' element={<Post />} />
+          <Route path='post/:id' element={<Post />} />
           <Route path='create' element={<CreatePost />} />
 
         </Route>
