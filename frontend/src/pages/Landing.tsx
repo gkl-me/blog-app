@@ -5,8 +5,21 @@ import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import {motion} from 'motion/react';
 import Header from "@/components/ui/header";
+import { useEffect } from "react";
+import { getToken } from "@/config";
+import { useNavigate } from "react-router-dom";
 
 function Landing() {
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const token = getToken()
+    if(token){
+      navigate('/home')
+    }
+  },[])
+
   return (
     <div className="h-screen flex flex-col bg-grid-pattern bg-grid">
       <Header name=""/>

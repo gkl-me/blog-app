@@ -1,7 +1,10 @@
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { useToast } from '@/hooks/use-toast'
+import useSignUp from '@/hooks/useSignUp'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
 
@@ -16,6 +19,18 @@ const signupSchema = z.object({
 
 const SignUp = () => {
     
+    const {toast } = useToast()
+    const {signup,isLoading,error} = useSignUp()
+
+    useEffect(() => {
+        if (error) {
+            toast({
+                title: error,
+                duration: 2000,
+            })
+        }
+    }, [error, toast]) 
+
     const form = useForm<z.infer<typeof signupSchema>>({
         resolver:zodResolver(signupSchema),
         defaultValues:{
@@ -26,11 +41,16 @@ const SignUp = () => {
         }
     })
 
-    function onSubmit(values:z.infer<typeof signupSchema>){
-        console.log(values)
+    async function onSubmit(values:z.infer<typeof signupSchema>){
+        await signup(values)
     }
 
   return (
+    isLoading ? (
+        <div className="flex justify-center items-center">
+            <p>Loading...</p> {/* Add a loading spinner or message */}
+        </div>
+    ) : (
 
     <div className='flex flex-col gap-2'>
     <h1 className='text-center text-lg  font-semibold'>Sign In</h1>
@@ -79,7 +99,7 @@ const SignUp = () => {
             <Button className='w-full mt-2' type='submit'>Sign Up</Button>
         </form>
     </Form>
-    </div>
+    </div>)
   )
 }
 

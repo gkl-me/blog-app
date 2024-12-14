@@ -9,3 +9,7 @@ export function getToken () {
 export function removeToken () {
     localStorage.removeItem("token")
 }
+
+
+
+export const BACKEND_API="http://localhost:8787"

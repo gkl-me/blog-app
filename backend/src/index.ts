@@ -2,6 +2,7 @@ import { Hono } from 'hono'
 import { userRouter } from './routes/user'
 import { verify } from 'hono/jwt'
 import { blogRouter } from './routes/blog'
+import { cors } from 'hono/cors'
 
 const app = new Hono<{
   Bindings:{
@@ -13,6 +14,8 @@ const app = new Hono<{
   }
 }>()
 
+
+app.use(cors())
 app.use('/api/v1/blog/*',async (c,next)=>{
   const jwt = c.req.header('Authorization')
   if(!jwt){

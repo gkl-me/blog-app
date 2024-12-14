@@ -9,4 +9,13 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: process.env.BACKEND_URL,
+        changeOrigin:true,
+        secure:false
+      }
+    }
+  }
 })

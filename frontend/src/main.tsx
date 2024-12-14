@@ -7,10 +7,11 @@ import Home from './pages/Home.tsx'
 import Landing from './pages/Landing.tsx'
 import Post from './pages/Post.tsx'
 import CreatePost from './pages/CreatePost.tsx'
+import { Toaster } from './components/ui/toaster.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    
+    <Toaster/>
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Landing />} />
