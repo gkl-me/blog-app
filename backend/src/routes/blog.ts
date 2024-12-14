@@ -94,9 +94,10 @@ blogRouter.post('/bulk',async(c)=>{
             author:{
                 select:{
                     name:true,
+                    email:true
                 }
             }
-        }
+        },
     })
     return c.json(allPost)
 })

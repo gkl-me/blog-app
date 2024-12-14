@@ -21,4 +21,10 @@ export const ContextProvider = ({ children }:{children:React.ReactNode}) => {
 };
 
 // Custom hook to use the UserContext
-export const useUser = () => useContext(UserContext);
+export const useUser = () => {
+  const context = useContext(UserContext);
+  if (!context) {
+    throw new Error('useUser must be used within a UserContextProvider');
+  }
+  return context;
+}

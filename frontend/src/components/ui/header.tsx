@@ -42,7 +42,7 @@ function Header({name}:{name:string}) {
               <Button onClick={() => {
                 navigate('/create')
               }} size="sm" variant="default" className="w-full">
-                Public
+                Publish
               </Button>
               <Button onClick={logout} size="sm" variant="default" className="w-full">
                 LogOut

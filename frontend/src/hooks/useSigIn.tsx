@@ -1,8 +1,9 @@
-import { setToken } from "@/config"
+import { setName, setToken } from "@/config"
 import axios, { AxiosError } from "axios"
 import { useState } from "react"
 import { BACKEND_API } from "@/config"
 import { useNavigate } from "react-router-dom"
+
 
 interface SignUpProps {
     password: string
@@ -13,6 +14,7 @@ interface SignUpProps {
 export function useSignIn() {
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
+
 
     const naviagate = useNavigate()
 
@@ -26,6 +28,7 @@ export function useSignIn() {
             })
             if (res) {
                 setToken(res.data.token)
+                setName(res.data.name)
                 naviagate('/home')
             }
         } catch (error) {

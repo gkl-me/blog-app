@@ -6,9 +6,7 @@ import { Link } from "react-router-dom"
 interface BlogCardProps {
   title: string
   content: string
-  author: {
-    name: string
-  }
+  author: string
   date: string
 
 }
@@ -16,9 +14,7 @@ interface BlogCardProps {
 export default function BlogCard({ 
   title = "Understanding Modern Web Development",
   content = "Explore the latest trends and best practices in modern web development...",
-  author = {
-    name: "John Doe",
-  },
+  author = "Hello",
   date = "Dec 14, 2023",
 }: BlogCardProps) {
   return (
@@ -43,10 +39,10 @@ export default function BlogCard({
       <CardFooter className="p-6 pt-0 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Avatar>
-            <AvatarFallback>{author.name[0]}</AvatarFallback>
+            <AvatarFallback>{author[0]}</AvatarFallback>
           </Avatar>
           <div className="flex items-center gap-2">
-            <span className="text-sm font-medium">{author.name}</span>
+            <span className="text-sm font-medium">{author}</span>
           </div>
         </div>
         <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-orange-600 transition-colors" />
